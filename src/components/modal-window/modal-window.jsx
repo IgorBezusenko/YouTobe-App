@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Modal } from "antd";
 import { HeartOutlined } from "@ant-design/icons";
 import FormInput from "../forms/form-input";
-import { connect } from "react-redux";
-import { saveFavourite } from "../redux/favouriteReducer";
 
 const ModalWindow = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -13,6 +11,7 @@ const ModalWindow = (props) => {
   };
 
   const handleOk = () => {
+    props.addFavourite();
     setIsModalVisible(false);
   };
 
@@ -37,10 +36,7 @@ const ModalWindow = (props) => {
         visible={isModalVisible}
         okText="Сохранить"
         cancelText="Не сохранять"
-        onOk={() => {
-          props.addFavourite();
-          handleOk();
-        }}
+        onOk={handleOk}
         onCancel={handleCancel}
       >
         <FormInput
@@ -65,8 +61,5 @@ const ModalWindow = (props) => {
     </>
   );
 };
-const mapDispatchToProps = {
-  saveFavourite,
-};
 
-export default connect(null, mapDispatchToProps)(ModalWindow);
+export default ModalWindow;
